@@ -1,0 +1,101 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==================== ENUMS ====================
+
+enum Role {
+  owner
+  gudang
+  kasir
+}
+
+// ==================== MODELS ====================
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String   // hashed with bcrypt
+  role      Role     @default(kasir)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  transactions Transaction[]
+  stockLogs    StockLog[]
+
+  @@map("users")
+}
+
+model Product {
+  id        String   @id @default(cuid())
+  name      String
+  category  String
+  brand     String
+  price     Int      // dalam Rupiah
+  stock     Int      @default(0)
+  minStock  Int      @default(5) // threshold warning
+  location  String   // lokasi rak: "A1", "B2"
+  imageUrl  String?  // optional product image
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  transactions Transaction[]
+  stockLogs    StockLog[]
+
+  @@map("products")
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  productId   String
+  productName String   // snapshot nama produk
+  qty         Int
+  unitPrice   Int      // snapshot harga saat transaksi
+  totalPrice  Int      // qty * unitPrice
+  cashierId   String
+  cashierName String   // snapshot nama kasir
+  createdAt   DateTime @default(now())
+
+  // Relations
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  cashier User    @relation(fields: [cashierId], references: [id], onDelete: Restrict)
+
+  @@index([productId])
+  @@index([cashierId])
+  @@index([createdAt])
+  @@map("transactions")
+}
+
+model StockLog {
+  id          String   @id @default(cuid())
+  productId   String
+  productName String   // snapshot nama produk
+  changeType  String   // "in" | "out" | "adjustment" | "sale"
+  changeQty   Int      // positive = masuk, negative = keluar
+  prevStock   Int      // stok sebelum perubahan
+  newStock    Int      // stok setelah perubahan
+  notes       String?  // keterangan optional
+  userId      String
+  userName    String   // snapshot nama user
+  createdAt   DateTime @default(now())
+
+  // Relations
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@index([productId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("stock_logs")
+}

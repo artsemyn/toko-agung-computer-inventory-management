@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /s /b \"c:\\\\PROJECTS\\\\school\\\\Mr. Wahyudi''s Assigments\\\\web-monitor-stock\")"
+    ]
+  }
+}
