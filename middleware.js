@@ -1,7 +1,14 @@
+import { auth } from "@/lib/auth"
 
-import { authOptions } from "@/lib/auth"
+export default auth((req) => {
+  // Middleware logic
+  const isLoggedIn = !!req.auth
+  const isOnDashboard = req.nextUrl.pathname.startsWith('/dashboard')
 
-export default auth(authOptions)
+  if (isOnDashboard && !isLoggedIn) {
+    return Response.redirect(new URL('/', req.url))
+  }
+})
 
 // Protect all routes under /dashboard
 export const config = {

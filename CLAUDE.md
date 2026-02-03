@@ -111,7 +111,7 @@ INSTRUKSI UPDATE PROGRESS:
 
 **Phase Status**: 🟢 Complete (8/8)
 **Blockers**: _None_
-**Notes**: _Authentication system fully implemented with NextAuth.js v5, Credentials provider, JWT sessions, and role-based access control._
+**Notes**: _Authentication system fully implemented and tested! NextAuth.js v5 with Credentials provider, JWT sessions, role-based access control, and working login flow._
 
 ---
 
@@ -283,8 +283,8 @@ INSTRUKSI UPDATE PROGRESS:
 | react | 19.2.3 | 🟢 Installed | UI library |
 | react-dom | 19.2.3 | 🟢 Installed | React DOM |
 | tailwindcss | ^4.0.0 | 🟢 Installed | Styling |
-| @prisma/client | 7.3.0 | 🟢 Installed | Database client |
-| prisma | 7.3.0 | 🟢 Installed | ORM CLI (dev) |
+| @prisma/client | 6.19.2 | 🟢 Installed | Database client |
+| prisma | 6.19.2 | 🟢 Installed | ORM CLI (dev) |
 | next-auth | ^5.0.0-beta.30 | 🟢 Installed | Authentication |
 
 ### Additional Dependencies
@@ -296,6 +296,9 @@ INSTRUKSI UPDATE PROGRESS:
 | clsx | ^2.1.1 | 🟢 Installed | Classname utility |
 | tailwind-merge | ^3.4.0 | 🟢 Installed | Tailwind class merge |
 | zod | ^4.3.6 | 🟢 Installed | Schema validation |
+| @neondatabase/serverless | ^1.0.2 | 🟢 Installed | Neon serverless driver |
+| @prisma/adapter-neon | ^7.3.0 | 🟢 Installed | Prisma Neon adapter |
+| ws | ^8.19.0 | 🟢 Installed | WebSocket library |
 
 ### Dev Dependencies
 
@@ -441,7 +444,7 @@ Setelah install package, ubah status menjadi:
 - [x] `.env.example` <!-- 2025-02-02 -->
 - [x] `.gitignore` <!-- 2025-02-02 -->
 - [x] `README.md` <!-- 2025-02-02 -->
-- [x] `middleware.js` <!-- 2025-02-03 (NextAuth route protection) -->
+- [x] `middleware.js` <!-- 2025-02-03 (NextAuth v5 route protection, updated) -->
 
 #### Prisma
 - [x] `prisma/schema.prisma` <!-- 2025-02-02 -->
@@ -468,7 +471,7 @@ Setelah install package, ubah status menjadi:
 - [ ] `src/app/dashboard/users/page.tsx`
 - [ ] `src/app/dashboard/users/loading.tsx`
 - [ ] `src/app/display/page.tsx`
-- [x] `src/app/api/auth/[...nextauth]/route.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/app/api/auth/[...nextauth]/route.js` <!-- 2025-02-03 (JavaScript, updated for NextAuth v5) -->
 
 #### UI Components
 - [ ] `src/components/ui/button.tsx`
@@ -496,7 +499,7 @@ Setelah install package, ubah status menjadi:
 
 #### Lib & Utils
 - [x] `src/lib/prisma.js` <!-- 2025-02-02 (JavaScript) -->
-- [x] `src/lib/auth.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/lib/auth.js` <!-- 2025-02-03 (JavaScript, updated for NextAuth v5) -->
 - [x] `src/lib/utils.js` <!-- 2025-02-02 (JavaScript) -->
 - [x] `src/lib/validations.js` <!-- 2025-02-03 (JavaScript) -->
 
@@ -523,7 +526,7 @@ Setelah install package, ubah status menjadi:
 - [x] Seed file created <!-- 2025-02-02 -->
 - [x] Seed data applied <!-- DONE: 2025-02-02 (npx prisma db seed) -->
 
-**Note**: Using Neon PostgreSQL development branch with **Prisma 7.3.0**. Connection URL configured in `prisma.config.js` (not in schema file).
+**Note**: Using Neon PostgreSQL development branch with **Prisma 6.19.2**. Connection URL configured in both `prisma.config.js` (for CLI) and `schema.prisma` (for runtime).
 
 ### Complete Prisma Schema
 
@@ -536,7 +539,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // URL moved to prisma.config.js (Prisma 7 requirement)
+  url      = env("DIRECT_DATABASE_URL")
 }
 
 // ==================== ENUMS ====================
@@ -984,7 +987,8 @@ export function delay(ms: number): Promise<void> {
 
 | ID | Severity | Description | Status | Found | Notes |
 |----|----------|-------------|--------|-------|-------|
-| _none_ | - | _Belum ada issue_ | - | - | - |
+| ISS-001 | 🔴 Critical | PrismaClientInitializationError on login | 🟢 Resolved | 2025-02-03 | Fixed by adding datasource URL to schema.prisma |
+| ISS-002 | 🔴 Critical | NextAuth Function.prototype.apply error | 🟢 Resolved | 2025-02-03 | Fixed by restructuring NextAuth v5 config |
 
 ### Severity Legend
 - 🔴 **Critical**: App tidak bisa jalan
@@ -1051,6 +1055,19 @@ export function delay(ms: number): Promise<void> {
 - 📄 Created validation schemas dengan Zod
 - 🧪 Created test dashboard page untuk verify auth flow
 - 📊 Progress: 17/67 tasks (25% complete)
+
+### [2025-02-03] Fix
+- 🐛 Fixed PrismaClientInitializationError on startup
+  - Added `url = env("DIRECT_DATABASE_URL")` to prisma/schema.prisma
+  - Simplified PrismaClient initialization in src/lib/prisma.js
+  - Issue: Prisma 6 requires datasource URL in schema file
+- 🐛 Fixed NextAuth "Function.prototype.apply" error
+  - Restructured auth setup to use NextAuth v5 pattern
+  - Created proper NextAuth() instance with handlers export
+  - Updated middleware to use auth export from lib/auth.js
+  - Fixed API route to import handlers from centralized config
+- 🔧 Clarified Prisma version: Using **Prisma 6.19.2** (not 7.x)
+- ✅ Authentication flow now fully working (login → dashboard redirect)
 
 ---
 
@@ -1191,7 +1208,7 @@ Sebelum menganggap task selesai:
 
 ---
 
-_Document Version: 1.0.0_  
-_Last Updated: 2025-02-02_  
-_Total Tasks: 67_  
-_Progress: 0%_
+_Document Version: 1.0.1_
+_Last Updated: 2025-02-03_
+_Total Tasks: 67_
+_Progress: 25%_
