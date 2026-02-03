@@ -60,11 +60,11 @@ Aplikasi web untuk monitoring dan pengelolaan stok gudang toko komputer dengan f
 ### Overall Progress
 <!-- AUTO-UPDATE: Hitung persentase dari total checkbox yang sudah di-check -->
 ```
-[████░░░░░░░░░░░░░░░░] 19% Complete
+[█████░░░░░░░░░░░░░░░] 25% Complete
 ```
 
 **Total Tasks**: 67
-**Completed**: 13
+**Completed**: 17
 **In Progress**: 0
 **Blocked**: 0
 
@@ -104,14 +104,14 @@ INSTRUKSI UPDATE PROGRESS:
 - [x] Run initial database migration <!-- DONE: 2025-02-02 (used db push) -->
 - [x] Create seed.js dengan demo data <!-- DONE: 2025-02-02 -->
 - [x] Run seed data <!-- DONE: 2025-02-02 (verified in Prisma Studio) -->
-- [ ] Implement NextAuth dengan Credentials provider
-- [ ] Create auth middleware untuk protected routes
-- [ ] Create login page UI
-- [ ] Test login flow untuk semua roles
+- [x] Implement NextAuth dengan Credentials provider <!-- DONE: 2025-02-03 -->
+- [x] Create auth middleware untuk protected routes <!-- DONE: 2025-02-03 -->
+- [x] Create login page UI <!-- DONE: 2025-02-03 -->
+- [x] Test login flow untuk semua roles <!-- DONE: 2025-02-03 -->
 
-**Phase Status**: 🟡 In Progress (4/8)
-**Blockers**: _None (database setup complete, auth pending)_
-**Notes**: _Database layer complete! Using Neon PostgreSQL development branch. Auth implementation skipped for now._
+**Phase Status**: 🟢 Complete (8/8)
+**Blockers**: _None_
+**Notes**: _Authentication system fully implemented with NextAuth.js v5, Credentials provider, JWT sessions, and role-based access control._
 
 ---
 
@@ -441,20 +441,21 @@ Setelah install package, ubah status menjadi:
 - [x] `.env.example` <!-- 2025-02-02 -->
 - [x] `.gitignore` <!-- 2025-02-02 -->
 - [x] `README.md` <!-- 2025-02-02 -->
+- [x] `middleware.js` <!-- 2025-02-03 (NextAuth route protection) -->
 
 #### Prisma
 - [x] `prisma/schema.prisma` <!-- 2025-02-02 -->
 - [x] `prisma/seed.js` <!-- 2025-02-02 (JavaScript) -->
 
 #### App Routes
-- [x] `src/app/layout.js` <!-- 2025-02-02 (JavaScript) -->
-- [x] `src/app/page.js` <!-- 2025-02-02 -->
+- [x] `src/app/layout.js` <!-- 2025-02-02 (JavaScript, updated 2025-02-03) -->
+- [x] `src/app/page.js` <!-- 2025-02-03 (Login page) -->
 - [x] `src/app/globals.css` <!-- 2025-02-02 -->
 - [ ] `src/app/loading.tsx`
 - [ ] `src/app/error.tsx`
 - [ ] `src/app/not-found.tsx`
 - [ ] `src/app/dashboard/layout.tsx`
-- [ ] `src/app/dashboard/page.tsx`
+- [x] `src/app/dashboard/page.js` <!-- 2025-02-03 (JavaScript) -->
 - [ ] `src/app/dashboard/loading.tsx`
 - [ ] `src/app/dashboard/products/page.tsx`
 - [ ] `src/app/dashboard/products/loading.tsx`
@@ -467,7 +468,7 @@ Setelah install package, ubah status menjadi:
 - [ ] `src/app/dashboard/users/page.tsx`
 - [ ] `src/app/dashboard/users/loading.tsx`
 - [ ] `src/app/display/page.tsx`
-- [ ] `src/app/api/auth/[...nextauth]/route.ts`
+- [x] `src/app/api/auth/[...nextauth]/route.js` <!-- 2025-02-03 (JavaScript) -->
 
 #### UI Components
 - [ ] `src/components/ui/button.tsx`
@@ -481,6 +482,7 @@ Setelah install package, ubah status menjadi:
 - [ ] `src/components/ui/toast.tsx`
 
 #### Feature Components
+- [x] `src/components/providers.js` <!-- 2025-02-03 (SessionProvider wrapper) -->
 - [ ] `src/components/sidebar.tsx`
 - [ ] `src/components/header.tsx`
 - [ ] `src/components/stat-card.tsx`
@@ -494,9 +496,9 @@ Setelah install package, ubah status menjadi:
 
 #### Lib & Utils
 - [x] `src/lib/prisma.js` <!-- 2025-02-02 (JavaScript) -->
-- [ ] `src/lib/auth.js`
+- [x] `src/lib/auth.js` <!-- 2025-02-03 (JavaScript) -->
 - [x] `src/lib/utils.js` <!-- 2025-02-02 (JavaScript) -->
-- [ ] `src/lib/validations.js`
+- [x] `src/lib/validations.js` <!-- 2025-02-03 (JavaScript) -->
 
 #### Server Actions
 - [ ] `src/actions/auth-actions.ts`
@@ -1034,6 +1036,21 @@ export function delay(ms: number): Promise<void> {
 - 📋 Added design system quick reference
 - 📋 Added utility functions reference
 - 📋 Created file creation registry
+
+### [2025-02-03] Feature
+- ✅ **Phase 2 Complete!** Implemented authentication system
+- 🔐 Created NextAuth.js v5 configuration with Credentials provider
+- 🔑 Implemented login page with email/password form
+- 🛡️ Created middleware for route protection
+- 👥 Added role-based access control (owner, gudang, kasir)
+- 📦 Created SessionProvider wrapper component
+- 🎨 Login UI follows design system (OKLCH colors, design tokens)
+- ✅ Password verification dengan bcryptjs
+- ✅ JWT-based session strategy
+- ✅ User isActive status validation
+- 📄 Created validation schemas dengan Zod
+- 🧪 Created test dashboard page untuk verify auth flow
+- 📊 Progress: 17/67 tasks (25% complete)
 
 ---
 
