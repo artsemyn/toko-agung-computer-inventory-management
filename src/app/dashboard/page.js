@@ -1,133 +1,199 @@
 'use client'
 
-import { useSession, signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { LogOut, User, Shield } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+import { Header } from '@/components/header'
+import { StatCard } from '@/components/stat-card'
+import { QuickActionCard } from '@/components/quick-action-card'
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
+import { EmptyState } from '@/components/empty-state'
+import { Button } from '@/components/ui/button'
+import {
+  Package,
+  AlertCircle,
+  ShoppingCart,
+  DollarSign,
+  Plus,
+  RefreshCw,
+  Receipt
+} from 'lucide-react'
+import { formatRupiah, formatDate } from '@/lib/utils'
 
 export default function DashboardPage() {
-  const { data: session, status } = useSession()
-  const router = useRouter()
+  const { data: session } = useSession()
+  const [isLoading, setIsLoading] = useState(true)
 
-  const handleLogout = async () => {
-    await signOut({ redirect: false })
-    router.push('/')
+  // Simulate loading data
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // Mock data - will be replaced with real data later
+  const stats = {
+    totalProduk: 245,
+    stokRendah: 8,
+    transaksiHariIni: 12,
+    revenueHariIni: 15750000
   }
 
-  if (status === 'loading') {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!session) {
-    router.push('/')
-    return null
-  }
-
-  // Get role badge color
-  const getRoleBadge = (role) => {
-    const badges = {
-      owner: {
-        label: 'Owner',
-        className: 'bg-primary/10 text-primary border-primary/20'
-      },
-      gudang: {
-        label: 'Staff Gudang',
-        className: 'bg-accent/10 text-accent border-accent/20'
-      },
-      kasir: {
-        label: 'Kasir',
-        className: 'bg-destructive/10 text-destructive border-destructive/20'
-      }
-    }
-    return badges[role] || badges.kasir
-  }
-
-  const roleBadge = getRoleBadge(session.user.role)
+  const recentTransactions = [
+    { id: 1, product: 'AMD Ryzen 5 5600X', qty: 2, total: 5000000, time: new Date(Date.now() - 1000 * 60 * 30), cashier: 'Staff Kasir' },
+    { id: 2, product: 'NVIDIA RTX 4060', qty: 1, total: 5500000, time: new Date(Date.now() - 1000 * 60 * 90), cashier: 'Staff Kasir' },
+    { id: 3, product: 'Kingston DDR4 16GB', qty: 4, total: 2600000, time: new Date(Date.now() - 1000 * 60 * 120), cashier: 'Staff Kasir' },
+  ]
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <h1 className="text-xl font-semibold text-foreground">
-              Toko Agung Computer
-            </h1>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground hover:text-destructive transition-colors"
-            >
-              <LogOut className="w-4 h-4" />
-              Logout
-            </button>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen">
+      {/* Page Header */}
+      <Header
+        title={`Selamat Datang, ${session?.user?.name || 'User'}!`}
+        description="Dashboard overview sistem inventory management"
+      />
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Card */}
-        <div className="bg-card rounded-lg border border-border p-8 shadow-lg mb-8">
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                <User className="w-8 h-8 text-primary" />
-              </div>
+      <div className="p-6 space-y-8">
+        {/* Stats Grid */}
+        <section>
+          <h2 className="text-lg font-semibold text-foreground mb-4">Statistik</h2>
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Skeleton variant="card" count={4} />
             </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold text-foreground mb-2">
-                Selamat Datang, {session.user.name}!
-              </h2>
-              <p className="text-muted-foreground mb-4">
-                Anda berhasil login ke sistem inventory management.
-              </p>
-              <div className="flex items-center gap-4 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">Role:</span>
-                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${roleBadge.className}`}>
-                    {roleBadge.label}
-                  </span>
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  <span className="font-medium">Email:</span> {session.user.email}
-                </div>
-              </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <StatCard
+                title="Total Produk"
+                value={stats.totalProduk}
+                description="produk terdaftar"
+                icon={Package}
+                variant="primary"
+                trend={{ value: 12, direction: 'up' }}
+              />
+              <StatCard
+                title="Stok Rendah"
+                value={stats.stokRendah}
+                description="perlu restock"
+                icon={AlertCircle}
+                variant="accent"
+                trend={{ value: 3, direction: 'down' }}
+              />
+              <StatCard
+                title="Transaksi Hari Ini"
+                value={stats.transaksiHariIni}
+                description="transaksi selesai"
+                icon={ShoppingCart}
+                variant="primary"
+                trend={{ value: 8, direction: 'up' }}
+              />
+              <StatCard
+                title="Revenue Hari Ini"
+                value={formatRupiah(stats.revenueHariIni)}
+                description="total penjualan"
+                icon={DollarSign}
+                variant="primary"
+                trend={{ value: 15, direction: 'up' }}
+              />
             </div>
-          </div>
-        </div>
+          )}
+        </section>
 
-        {/* Session Info (Development Only) */}
-        <div className="bg-card rounded-lg border border-border p-6">
-          <h3 className="text-lg font-semibold text-foreground mb-4">
-            Session Information (Dev Mode)
-          </h3>
-          <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm overflow-auto">
-            <pre className="text-foreground whitespace-pre-wrap">
-              {JSON.stringify(session, null, 2)}
-            </pre>
-          </div>
-        </div>
+        {/* Quick Actions Grid */}
+        <section>
+          <h2 className="text-lg font-semibold text-foreground mb-4">Aksi Cepat</h2>
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Skeleton variant="card" count={3} />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <QuickActionCard
+                title="Tambah Produk"
+                description="Manajemen Produk"
+                icon={Plus}
+                variant="primary"
+                href="/dashboard/products/new"
+              />
+              <QuickActionCard
+                title="Update Stok"
+                description="Manajemen Stok"
+                icon={RefreshCw}
+                variant="accent"
+                href="/dashboard/stock"
+              />
+              <QuickActionCard
+                title="Input Transaksi"
+                description="Transaksi Penjualan"
+                icon={Receipt}
+                variant="primary"
+                href="/dashboard/transactions"
+              />
+            </div>
+          )}
+        </section>
 
-        {/* Next Steps Info */}
-        <div className="mt-8 p-6 bg-primary/5 border border-primary/20 rounded-lg">
-          <h3 className="text-lg font-semibold text-foreground mb-3">
-            🚀 Next Steps
-          </h3>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>✅ Phase 2 Complete - Authentication system working!</li>
-            <li>⏭️ Phase 3 - Build core UI components (Button, Input, Card, etc.)</li>
-            <li>⏭️ Phase 4 - Create dashboard with stats and quick actions</li>
-            <li>⏭️ Phase 5+ - Implement product, stock, and transaction management</li>
-          </ul>
-        </div>
-      </main>
+        {/* Recent Transactions */}
+        <section>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-foreground">Transaksi Terbaru</h2>
+            <Button variant="ghost" size="sm" onClick={() => {}}>
+              Lihat Semua
+            </Button>
+          </div>
+
+          {isLoading ? (
+            <Card>
+              <CardContent className="p-6">
+                <Skeleton variant="table" count={3} />
+              </CardContent>
+            </Card>
+          ) : recentTransactions.length === 0 ? (
+            <Card>
+              <CardContent className="p-6">
+                <EmptyState
+                  icon={ShoppingCart}
+                  title="Belum ada transaksi"
+                  description="Transaksi hari ini akan muncul di sini"
+                />
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  {recentTransactions.map((transaction) => (
+                    <div
+                      key={transaction.id}
+                      className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex-1">
+                        <h4 className="font-medium text-foreground mb-1">
+                          {transaction.product}
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          {transaction.qty} unit • {formatDate(transaction.time)}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold text-foreground mb-1">
+                          {formatRupiah(transaction.total)}
+                        </p>
+                        <Badge variant="neutral" size="sm">
+                          {transaction.cashier}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </section>
+      </div>
     </div>
   )
 }
