@@ -60,11 +60,11 @@ Aplikasi web untuk monitoring dan pengelolaan stok gudang toko komputer dengan f
 ### Overall Progress
 <!-- AUTO-UPDATE: Hitung persentase dari total checkbox yang sudah di-check -->
 ```
-[█████████░░░░░░░░░░░] 49% Complete
+[███████████████░░░░░] 76% Complete
 ```
 
 **Total Tasks**: 67
-**Completed**: 33
+**Completed**: 51
 **In Progress**: 0
 **Blocked**: 0
 
@@ -160,38 +160,38 @@ INSTRUKSI UPDATE PROGRESS:
 ### Phase 5: Product Management Module ━━━━━━━━━━━━━━━━━━━━
 <!-- Target: CRUD Produk (Owner only) -->
 
-- [ ] Product list page dengan DataTable
-- [ ] Search products by name/brand
-- [ ] Filter products by category
-- [ ] Sort products by columns
-- [ ] Add product form dengan validation
-- [ ] Edit product form
-- [ ] Delete product dengan confirmation modal
-- [ ] Product stock status indicators
-- [ ] Server actions untuk CRUD operations
-- [ ] Optimistic updates
+- [x] Product list page dengan DataTable <!-- DONE: 2025-02-03 -->
+- [x] Search products by name/brand <!-- DONE: 2025-02-03 -->
+- [x] Filter products by category <!-- DONE: 2025-02-03 -->
+- [x] Sort products by columns <!-- DONE: 2025-02-03 -->
+- [x] Add product form dengan validation <!-- DONE: 2025-02-03 -->
+- [x] Edit product form <!-- DONE: 2025-02-03 -->
+- [x] Delete product dengan confirmation modal <!-- DONE: 2025-02-03 -->
+- [x] Product stock status indicators <!-- DONE: 2025-02-03 -->
+- [x] Server actions untuk CRUD operations <!-- DONE: 2025-02-03 -->
+- [x] Optimistic updates <!-- DONE: 2025-02-03 -->
 
-**Phase Status**: 🔴 Not Started (0/10)  
-**Blockers**: _Waiting for Phase 3 & 4_  
-**Notes**: _-_
+**Phase Status**: 🟢 Complete (10/10)
+**Blockers**: _None_
+**Notes**: _Phase 5 complete! Built 15 files: 5 UI components (Input, Select, Table, Modal, Toast), 1 server actions file, 2 feature components (ProductForm, ProductTable), 3 pages (List, Add, Edit). Full CRUD with search/filter/sort, role-based access (owner: full, gudang/kasir: read-only), client+server validation, toast notifications, soft delete._
 
 ---
 
 ### Phase 6: Stock Management Module ━━━━━━━━━━━━━━━━━━━━
 <!-- Target: Fitur untuk Petugas Gudang -->
 
-- [ ] Stock overview page
-- [ ] Update stock form (tambah stok)
-- [ ] Reduce stock form (manual reduction)
-- [ ] Stock adjustment dengan notes
-- [ ] Stock history/log table
-- [ ] Low stock alerts list
-- [ ] Server actions untuk stock operations
-- [ ] Stock log entries automatic
+- [x] Stock overview page <!-- DONE: 2025-02-03 -->
+- [x] Update stock form (tambah stok) <!-- DONE: 2025-02-03 -->
+- [x] Reduce stock form (manual reduction) <!-- DONE: 2025-02-03 -->
+- [x] Stock adjustment dengan notes <!-- DONE: 2025-02-03 -->
+- [x] Stock history/log table <!-- DONE: 2025-02-03 -->
+- [x] Low stock alerts list <!-- DONE: 2025-02-03 -->
+- [x] Server actions untuk stock operations <!-- DONE: 2025-02-03 -->
+- [x] Stock log entries automatic <!-- DONE: 2025-02-03 -->
 
-**Phase Status**: 🔴 Not Started (0/8)  
-**Blockers**: _Waiting for Phase 5_  
-**Notes**: _-_
+**Phase Status**: 🟢 Complete (8/8)
+**Blockers**: _None_
+**Notes**: _Phase 6 complete! Built 4 files: 1 server actions (5 functions with Prisma transactions), 2 feature components (StockForm with tabs, StockLogTable with filters), 1 page (Stock management with 3 sections). Role-based access (owner + gudang only), automatic StockLog snapshots, low stock alerts._
 
 ---
 
@@ -460,11 +460,11 @@ Setelah install package, ubah status menjadi:
 - [ ] `src/app/dashboard/layout.tsx`
 - [x] `src/app/dashboard/page.js` <!-- 2025-02-03 (JavaScript) -->
 - [ ] `src/app/dashboard/loading.tsx`
-- [ ] `src/app/dashboard/products/page.tsx`
+- [x] `src/app/dashboard/products/page.js` <!-- 2025-02-03 (JavaScript) -->
 - [ ] `src/app/dashboard/products/loading.tsx`
-- [ ] `src/app/dashboard/products/new/page.tsx`
-- [ ] `src/app/dashboard/products/[id]/edit/page.tsx`
-- [ ] `src/app/dashboard/stock/page.tsx`
+- [x] `src/app/dashboard/products/new/page.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/app/dashboard/products/[id]/edit/page.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/app/dashboard/stock/page.js` <!-- 2025-02-03 (JavaScript, Phase 6) -->
 - [ ] `src/app/dashboard/stock/loading.tsx`
 - [ ] `src/app/dashboard/transactions/page.tsx`
 - [ ] `src/app/dashboard/transactions/loading.tsx`
@@ -474,28 +474,29 @@ Setelah install package, ubah status menjadi:
 - [x] `src/app/api/auth/[...nextauth]/route.js` <!-- 2025-02-03 (JavaScript, updated for NextAuth v5) -->
 
 #### UI Components
-- [ ] `src/components/ui/button.tsx`
-- [ ] `src/components/ui/input.tsx`
-- [ ] `src/components/ui/card.tsx`
-- [ ] `src/components/ui/badge.tsx`
-- [ ] `src/components/ui/table.tsx`
-- [ ] `src/components/ui/modal.tsx`
-- [ ] `src/components/ui/select.tsx`
-- [ ] `src/components/ui/skeleton.tsx`
-- [ ] `src/components/ui/toast.tsx`
+- [x] `src/components/ui/button.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/components/ui/input.js` <!-- 2025-02-03 (JavaScript, Phase 5) -->
+- [x] `src/components/ui/card.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/components/ui/badge.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/components/ui/table.js` <!-- 2025-02-03 (JavaScript, Phase 5 compound components) -->
+- [x] `src/components/ui/modal.js` <!-- 2025-02-03 (JavaScript, Phase 5) -->
+- [x] `src/components/ui/select.js` <!-- 2025-02-03 (JavaScript, Phase 5) -->
+- [x] `src/components/ui/skeleton.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/components/ui/toast.js` <!-- 2025-02-03 (JavaScript, Phase 5) -->
 
 #### Feature Components
-- [x] `src/components/providers.js` <!-- 2025-02-03 (SessionProvider wrapper) -->
-- [ ] `src/components/sidebar.tsx`
-- [ ] `src/components/header.tsx`
-- [ ] `src/components/stat-card.tsx`
-- [ ] `src/components/quick-action-card.tsx`
-- [ ] `src/components/product-table.tsx`
-- [ ] `src/components/product-form.tsx`
+- [x] `src/components/providers.js` <!-- 2025-02-03 (SessionProvider + ToastProvider wrapper, updated) -->
+- [x] `src/components/sidebar.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/components/header.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/components/stat-card.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/components/quick-action-card.js` <!-- 2025-02-03 (JavaScript) -->
+- [x] `src/components/product-table.js` <!-- 2025-02-03 (JavaScript, Phase 5 with search/filter/sort) -->
+- [x] `src/components/product-form.js` <!-- 2025-02-03 (JavaScript, Phase 5 reusable for Add/Edit) -->
 - [ ] `src/components/transaction-form.tsx`
-- [ ] `src/components/stock-form.tsx`
+- [x] `src/components/stock-form.js` <!-- 2025-02-03 (JavaScript, Phase 6 with 3 tabs) -->
+- [x] `src/components/stock-log-table.js` <!-- 2025-02-03 (JavaScript, Phase 6 with filters) -->
 - [ ] `src/components/user-form.tsx`
-- [ ] `src/components/empty-state.tsx`
+- [x] `src/components/empty-state.js` <!-- 2025-02-03 (JavaScript) -->
 
 #### Lib & Utils
 - [x] `src/lib/prisma.js` <!-- 2025-02-02 (JavaScript) -->
@@ -505,13 +506,13 @@ Setelah install package, ubah status menjadi:
 
 #### Server Actions
 - [ ] `src/actions/auth-actions.ts`
-- [ ] `src/actions/product-actions.ts`
-- [ ] `src/actions/stock-actions.ts`
+- [x] `src/actions/product-actions.js` <!-- 2025-02-03 (JavaScript, Phase 5 with 5 CRUD functions) -->
+- [x] `src/actions/stock-actions.js` <!-- 2025-02-03 (JavaScript, Phase 6 with 5 functions) -->
 - [ ] `src/actions/transaction-actions.ts`
 - [ ] `src/actions/user-actions.ts`
 
 #### Hooks & Types
-- [ ] `src/hooks/use-toast.ts`
+- [x] `src/hooks/use-toast.js` <!-- 2025-02-03 (JavaScript, Phase 5 Toast system) -->
 - [ ] `src/hooks/use-cart.ts`
 - [ ] `src/types/index.ts`
 
@@ -836,7 +837,7 @@ className="w-full px-4 py-3 rounded-lg border border-border bg-input text-foregr
 // Table Header
 className="bg-muted text-left text-sm font-semibold text-muted-foreground uppercase tracking-wider"
 
-// Table Row
+// Table Row 
 className="border-b border-border hover:bg-muted/50 transition-colors"
 ```
 
@@ -1080,6 +1081,78 @@ export function delay(ms: number): Promise<void> {
 - ⚙️ All components follow design system (OKLCH colors, Tailwind v4)
 - 📊 Progress: 33/67 tasks (49% complete)
 - 🚀 Deferred 6 components to Phase 5 (Input, Table, Select, Modal, Toast, ErrorBoundary)
+
+### [2025-02-03] Feature (Phase 5)
+- ✅ **Phase 5 Complete!** Product Management Module fully implemented
+- 🎨 Built 5 deferred UI components:
+  - Input (validation states, error display, helper text)
+  - Select (native select with custom styling, chevron icon)
+  - Table (compound components: Table, TableHeader, TableBody, TableRow, TableHead, TableCell)
+  - Modal (backdrop overlay, ESC key close, focus trap, body scroll lock)
+  - Toast (notification system with Context, auto-dismiss, success/error/info variants)
+- 📦 Created server actions with auth & validation:
+  - product-actions.js with 5 CRUD functions (getProducts, getProductById, createProduct, updateProduct, deleteProduct)
+  - Auth checks: requireOwner() helper for owner-only operations
+  - Zod validation with productSchema
+  - Soft delete implementation (isActive = false)
+  - Transaction safety check on delete
+- 🧩 Built 2 feature components:
+  - ProductForm (reusable for Add/Edit, 8 fields, client+server validation, role guard)
+  - ProductTable (search by name/brand, filter by category tabs, sort by columns, delete modal, role-based actions)
+- 📄 Created 3 pages:
+  - Product List page (ProductTable integration, owner-only Add button)
+  - Add Product page (ProductForm, toast notifications, redirect on success)
+  - Edit Product page (fetch by ID, pre-fill form, update on submit)
+- 🔐 Two-layer role-based access control:
+  - UI hiding: owner sees Add/Edit/Delete, gudang/kasir read-only
+  - Server enforcement: requireOwner() checks in all CUD operations
+- 🔍 Search & Filter features:
+  - Client-side search (debounced, filters by name/brand)
+  - Category filter tabs (All + 7 categories)
+  - Column sorting (name, price, stock with ASC/DESC/none)
+- ✅ Toast notification system integrated:
+  - ToastProvider added to root layout
+  - Success/error toasts on all CRUD operations
+- 📊 Progress: 43/67 tasks (64% complete)
+- 🎯 Ready for Phase 6: Stock Management Module
+
+### [2025-02-03] Feature (Phase 6)
+- ✅ **Phase 6 Complete!** Stock Management Module fully implemented
+- 📦 Created server actions with Prisma transactions:
+  - stock-actions.js with 5 functions (getLowStockProducts, getStockLogs, addStock, reduceStock, adjustStock)
+  - Auth checks: requireOwnerOrGudang() helper for owner + gudang only
+  - Prisma $transaction API for atomicity (StockLog + Product update)
+  - Automatic snapshot creation (productName, userName) in StockLog
+  - revalidatePath for cache invalidation
+- 🧩 Built 2 feature components:
+  - StockForm (tabbed UI with 3 modes: Add/Reduce/Adjust, dynamic fields per mode)
+  - StockLogTable (history table with changeType filter, badge colors)
+- 📄 Created 1 page:
+  - Stock Management page with 3 sections (low stock alerts, stock form, stock history)
+  - Role guard: owner + gudang can access, kasir blocked
+  - Refresh mechanism: refreshTrigger syncs alerts and history after operations
+- 🔐 Two-layer role-based access control:
+  - UI level: redirect to dashboard with error toast if kasir tries to access
+  - Server level: requireOwnerOrGudang() checks in all stock operations
+- 🎨 Low stock alerts:
+  - Card grid showing products where stock <= minStock
+  - Displays name, category, brand, current stock, min stock
+  - Updates automatically after stock operations
+- 📊 Stock operations with validation:
+  - Add stock: validate qty > 0, create "in" log entry, increase stock
+  - Reduce stock: validate qty > 0 and qty <= current stock, create "out" log entry, decrease stock
+  - Adjust stock: validate newStock >= 0, create "adjustment" log entry, set to new value
+  - All operations use Prisma transactions for data consistency
+- 📋 Stock history features:
+  - 8 columns: Waktu, Produk, Tipe, Perubahan, Stok Sebelum, Stok Sesudah, User, Catatan
+  - Filter by changeType (All/Masuk/Keluar/Penyesuaian/Penjualan)
+  - Badge colors: primary (Masuk), destructive (Keluar), accent (Penyesuaian), neutral (Penjualan)
+  - Positive changes in green, negative changes in red
+- ✅ Toast notification system for all operations:
+  - Success toast on stock update
+  - Error toast with specific messages
+- 📊 Progress: 51/67 tasks (76% complete)
+- 🎯 Ready for Phase 7: Transaction Module
 
 ### [2025-02-03] Fix
 - 🐛 Fixed PrismaClientInitializationError on startup
