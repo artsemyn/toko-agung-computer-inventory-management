@@ -33,3 +33,16 @@ export const userSchema = z.object({
     errorMap: () => ({ message: "Role tidak valid" })
   }),
 })
+
+// Transaction item validation schema (Phase 7)
+export const transactionItemSchema = z.object({
+  productId: z.string().min(1, "Product ID harus diisi"),
+  qty: z.number().int().min(1, "Jumlah minimal 1")
+})
+
+// Transaction filters validation schema (Phase 7)
+export const transactionFiltersSchema = z.object({
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  limit: z.number().int().min(1).max(500).optional()
+})

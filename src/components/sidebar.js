@@ -14,7 +14,8 @@ import {
   LogOut,
   Menu,
   X,
-  Package2
+  Package2,
+  FileText
 } from 'lucide-react'
 
 const menuItems = [
@@ -41,6 +42,12 @@ const menuItems = [
     path: '/dashboard/transactions',
     icon: ShoppingCart,
     roles: ['owner', 'kasir']
+  },
+  {
+    name: 'Riwayat Transaksi',
+    path: '/dashboard/transactions/history',
+    icon: FileText,
+    roles: ['owner']
   },
   {
     name: 'Pengguna',
@@ -115,7 +122,7 @@ export function Sidebar() {
                 <h1 className="font-bold text-lg text-sidebar-foreground group-hover:text-primary transition-colors">
                   TechStore
                 </h1>
-                <p className="text-xs text-muted-foreground">Inventory System</p>
+                <p className="text-xs text-sidebar-muted-foreground">Inventory System</p>
               </div>
             </Link>
           </div>
@@ -136,7 +143,7 @@ export function Sidebar() {
                         'flex items-center gap-3 px-4 py-3 rounded-lg transition-colors',
                         'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
                         isActive
-                          ? 'bg-sidebar-primary text-primary font-semibold'
+                          ? 'bg-primary text-primary-foreground font-semibold'
                           : 'text-sidebar-foreground hover:bg-sidebar-accent'
                       )}
                       aria-current={isActive ? 'page' : undefined}
@@ -157,8 +164,8 @@ export function Sidebar() {
                 <p className="text-sm font-medium text-sidebar-foreground">
                   {session.user.name}
                 </p>
-                <p className="text-xs text-muted-foreground">{session.user.email}</p>
-                <p className="text-xs text-muted-foreground capitalize mt-1">
+                <p className="text-xs text-sidebar-muted-foreground">{session.user.email}</p>
+                <p className="text-xs text-sidebar-muted-foreground capitalize mt-1">
                   Role: {session.user.role}
                 </p>
               </div>
