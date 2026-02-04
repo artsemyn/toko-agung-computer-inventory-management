@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input'
-import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { userSchema } from '@/lib/validations'
 
@@ -105,19 +104,27 @@ export function UserForm({ mode = 'create', initialData = null, onSubmit, isLoad
       />
 
       {/* Role */}
-      <Select
-        name="role"
-        label="Role"
-        defaultValue={initialData?.role || 'kasir'}
-        error={errors.role?.[0]}
-        required
-        disabled={isLoading}
-        helperText="Tentukan hak akses pengguna"
-      >
-        <option value="kasir">Kasir - Input transaksi penjualan</option>
-        <option value="gudang">Gudang - Manajemen stok produk</option>
-        <option value="owner">Owner - Full access ke semua fitur</option>
-      </Select>
+      <div>
+        <label htmlFor="role" className="block text-sm font-medium text-foreground mb-2">
+          Role<span className="text-destructive ml-1">*</span>
+        </label>
+        <select
+          id="role"
+          name="role"
+          defaultValue={initialData?.role || 'kasir'}
+          required
+          disabled={isLoading}
+          className="w-full px-4 py-3 pr-10 rounded-lg border border-border bg-input text-foreground transition-all focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 appearance-none"
+        >
+          <option value="kasir">Kasir - Input transaksi penjualan</option>
+          <option value="gudang">Gudang - Manajemen stok produk</option>
+          <option value="owner">Owner - Full access ke semua fitur</option>
+        </select>
+        {errors.role?.[0] && (
+          <p className="text-sm text-destructive mt-2">{errors.role[0]}</p>
+        )}
+        <p className="text-sm text-muted-foreground mt-1">Tentukan hak akses pengguna</p>
+      </div>
 
       {/* Actions */}
       <div className="flex items-center gap-4 pt-4">

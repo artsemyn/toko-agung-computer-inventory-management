@@ -24,11 +24,21 @@ export const productSchema = z.object({
   imageUrl: z.string().url().optional().or(z.literal("")),
 })
 
-// User validation schema (untuk Phase 8 nanti)
+// User validation schema (Phase 8)
 export const userSchema = z.object({
   name: z.string().min(1, "Nama harus diisi"),
   email: z.string().email("Format email tidak valid"),
   password: z.string().min(6, "Password minimal 6 karakter"),
+  role: z.enum(["owner", "gudang", "kasir"], {
+    errorMap: () => ({ message: "Role tidak valid" })
+  }),
+})
+
+// User update schema (password optional)
+export const userUpdateSchema = z.object({
+  name: z.string().min(1, "Nama harus diisi"),
+  email: z.string().email("Format email tidak valid"),
+  password: z.string().min(6, "Password minimal 6 karakter").optional().or(z.literal("")),
   role: z.enum(["owner", "gudang", "kasir"], {
     errorMap: () => ({ message: "Role tidak valid" })
   }),

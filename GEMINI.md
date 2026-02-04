@@ -60,11 +60,11 @@ Aplikasi web untuk monitoring dan pengelolaan stok gudang toko komputer dengan f
 ### Overall Progress
 <!-- AUTO-UPDATE: Hitung persentase dari total checkbox yang sudah di-check -->
 ```
-[██████████████████░░] 91% Complete
+[██████████████████░░] 92% Complete
 ```
 
-**Total Tasks**: 67
-**Completed**: 61
+**Total Tasks**: 74
+**Completed**: 68
 **In Progress**: 0
 **Blocked**: 0
 
@@ -218,17 +218,17 @@ INSTRUKSI UPDATE PROGRESS:
 ### Phase 8: User Management Module ━━━━━━━━━━━━━━━━━━━━
 <!-- Target: Admin features (Owner only) -->
 
-- [ ] User list page
-- [ ] Add user form dengan role selection
-- [ ] Edit user form
-- [ ] Toggle user active/inactive
-- [ ] Role badges display
-- [ ] Server actions untuk user management
-- [ ] Prevent self-deactivation
+- [x] User list page <!-- DONE: 2026-02-04 -->
+- [x] Add user form dengan role selection <!-- DONE: 2026-02-04 -->
+- [x] Edit user form <!-- DONE: 2026-02-04 -->
+- [x] Toggle user active/inactive <!-- DONE: 2026-02-04 -->
+- [x] Role badges display <!-- DONE: 2026-02-04 -->
+- [x] Server actions untuk user management <!-- DONE: 2026-02-04 -->
+- [x] Prevent self-deactivation <!-- DONE: 2026-02-04 -->
 
-**Phase Status**: 🔴 Not Started (0/7)  
-**Blockers**: _Waiting for Phase 4_  
-**Notes**: _-_
+**Phase Status**: 🟢 Complete (7/7)
+**Blockers**: _None_
+**Notes**: _Phase 8 complete! Built 5 files: 1 server actions (6 functions with auth checks), 2 feature components (UserForm with create/edit modes, UserTable with toggle active/role badges), 3 pages (List, Add, Edit). Owner-only access with role guard, self-deactivation prevention, password hashing with bcrypt, email uniqueness validation._
 
 ---
 
@@ -469,7 +469,9 @@ Setelah install package, ubah status menjadi:
 - [x] `src/app/dashboard/transactions/page.js` <!-- 2025-02-04 (JavaScript, Phase 7 POS page) -->
 - [x] `src/app/dashboard/transactions/history/page.js` <!-- 2025-02-04 (JavaScript, Phase 7 History page) -->
 - [ ] `src/app/dashboard/transactions/loading.tsx`
-- [ ] `src/app/dashboard/users/page.tsx`
+- [x] `src/app/dashboard/users/page.js` <!-- 2026-02-04 (JavaScript, Phase 8 user list) -->
+- [x] `src/app/dashboard/users/new/page.js` <!-- 2026-02-04 (JavaScript, Phase 8 add user) -->
+- [x] `src/app/dashboard/users/[id]/edit/page.js` <!-- 2026-02-04 (JavaScript, Phase 8 edit user) -->
 - [ ] `src/app/dashboard/users/loading.tsx`
 - [ ] `src/app/display/page.tsx`
 - [x] `src/app/api/auth/[...nextauth]/route.js` <!-- 2025-02-03 (JavaScript, updated for NextAuth v5) -->
@@ -499,7 +501,8 @@ Setelah install package, ubah status menjadi:
 - [x] `src/components/transaction-history-table.js` <!-- 2025-02-04 (JavaScript, Phase 7 with date filters) -->
 - [x] `src/components/stock-form.js` <!-- 2025-02-03 (JavaScript, Phase 6 with 3 tabs) -->
 - [x] `src/components/stock-log-table.js` <!-- 2025-02-03 (JavaScript, Phase 6 with filters) -->
-- [ ] `src/components/user-form.tsx`
+- [x] `src/components/user-form.js` <!-- 2026-02-04 (JavaScript, Phase 8 create/edit) -->
+- [x] `src/components/user-table.js` <!-- 2026-02-04 (JavaScript, Phase 8 with toggle active) -->
 - [x] `src/components/empty-state.js` <!-- 2025-02-03 (JavaScript) -->
 
 #### Lib & Utils
@@ -513,7 +516,7 @@ Setelah install package, ubah status menjadi:
 - [x] `src/actions/product-actions.js` <!-- 2025-02-03 (JavaScript, Phase 5 with 5 CRUD functions) -->
 - [x] `src/actions/stock-actions.js` <!-- 2025-02-03 (JavaScript, Phase 6 with 5 functions) -->
 - [x] `src/actions/transaction-actions.js` <!-- 2025-02-04 (JavaScript, Phase 7 with 4 functions + Prisma transactions) -->
-- [ ] `src/actions/user-actions.ts`
+- [x] `src/actions/user-actions.js` <!-- 2026-02-04 (JavaScript, Phase 8 with 6 functions) -->
 
 #### Hooks & Types
 - [x] `src/hooks/use-toast.js` <!-- 2025-02-03 (JavaScript, Phase 5 Toast system) -->
@@ -1207,6 +1210,37 @@ export function delay(ms: number): Promise<void> {
   - Quick actions: filtered by role (owner: all, gudang: stock only, kasir: transactions only)
 - 📊 Progress: 61/67 tasks (91% complete)
 - 🎯 Ready for Phase 8: User Management Module
+
+### [2026-02-04] Feature (Phase 8)
+- ✅ **Phase 8 Complete!** User Management Module fully implemented
+- 📦 Created server actions with auth checks:
+  - user-actions.js with 6 functions (getUsers, getUserById, createUser, updateUser, toggleUserActive, deleteUser)
+  - Auth checks: requireOwner() helper for owner-only operations
+  - Password hashing with bcryptjs (10 rounds)
+  - Email uniqueness validation (check before create/update)
+  - Self-deactivation prevention (owner cannot deactivate own account)
+  - Zod validation with userSchema and userUpdateSchema
+  - revalidatePath for cache invalidation
+- 🧩 Built 2 feature components:
+  - UserForm (reusable for create/edit, 4 fields: name, email, password, role)
+    - Edit mode: password optional (leave blank to keep current)
+    - Client-side validation with Zod safeParse
+    - Native select for role dropdown (Owner/Gudang/Kasir)
+  - UserTable (user list with edit and toggle active actions)
+    - Role badges: Owner (primary/blue), Gudang (accent/teal), Kasir (neutral)
+    - Active/Inactive status badges
+    - "Anda" badge on current user row
+    - Toggle confirmation modal with context-aware messaging
+    - Self-deactivation prevention (UI + server check)
+- 📄 Created 3 pages:
+  - User List page (UserTable integration, "Tambah Pengguna" button)
+  - Add User page (UserForm in create mode, toast notifications, redirect on success)
+  - Edit User page (fetch user by ID, pre-fill form, update on submit)
+- 🔐 Owner-only access control:
+  - UI level: redirect to dashboard with error toast if non-owner
+  - Server level: requireOwner() checks in all operations
+- 📊 Progress: 68/74 tasks (92% complete)
+- 🎯 Ready for Phase 9: Public Display
 
 ### [2025-02-03] Fix
 - 🐛 Fixed PrismaClientInitializationError on startup
