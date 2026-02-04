@@ -1,6 +1,6 @@
-# CLAUDE.md - Toko Agung Computer's Inventory Management System
+# GEMINI.md - Toko Agung Computer's Inventory Management System
 
-> **⚠️ LIVING DOCUMENT**: File ini adalah panduan utama untuk Claude Code. Update file ini setiap kali ada perubahan signifikan pada project.
+> **⚠️ LIVING DOCUMENT**: File ini adalah panduan utama untuk Gemini Code. Update file ini setiap kali ada perubahan signifikan pada project.
 
 ---
 
@@ -14,7 +14,7 @@
 4. **Update Known Issues** jika menemukan bug atau masalah
 5. **Sync dengan kode** - pastikan dokumentasi selalu reflect state terkini
 
-### Kapan Harus Update CLAUDE.md
+### Kapan Harus Update GEMINI.md
 
 | Situasi | Action |
 |---------|--------|
@@ -322,7 +322,7 @@ Setelah install package, ubah status menjadi:
 
 ```
 /techstore
-├── 📄 CLAUDE.md                 # File ini (living document)
+├── 📄 GEMINI.md                 # File ini (living document)
 ├── 📄 README.md                 # Project readme
 ├── 📄 package.json              # Dependencies
 ├── 📄 tsconfig.json             # TypeScript config
@@ -1038,7 +1038,7 @@ export function delay(ms: number): Promise<void> {
 - ✅ Verified data in Prisma Studio
 
 ### [2025-02-02] Docs
-- ✨ Created comprehensive CLAUDE.md with progress tracking
+- ✨ Created comprehensive GEMINI.md with progress tracking
 - 📋 Defined complete project structure
 - 📋 Defined database schema with all models
 - 📋 Defined role-based access control matrix
@@ -1278,7 +1278,7 @@ npm run lint -- --fix    # Fix linting issues
 
 ---
 
-## 🤖 Claude Code Self-Update Instructions
+## 🤖 Gemini Code Self-Update Instructions
 
 ### Setelah Menyelesaikan Task
 
@@ -1338,7 +1338,7 @@ Sebelum menganggap task selesai:
 - [ ] Responsive design
 - [ ] Accessible (labels, focus states)
 - [ ] No console.log left
-- [ ] CLAUDE.md updated
+- [ ] GEMINI.md updated
 
 ---
 
@@ -1356,7 +1356,7 @@ Sebelum menganggap task selesai:
 
 ---
 
-**End of CLAUDE.md**
+**End of GEMINI.md**
 
 ---
 
