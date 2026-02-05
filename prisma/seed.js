@@ -1,10 +1,14 @@
-import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcryptjs'
+// Load environment variables FIRST before any imports
+import 'dotenv/config'
 
-const prisma = new PrismaClient()
+// Use dynamic import to ensure env vars are loaded
+import bcrypt from 'bcryptjs'
 
 async function main() {
   console.log('🌱 Seeding database...')
+
+  // Import prisma after dotenv is loaded
+  const { prisma } = await import('../src/lib/prisma.js')
 
   // Clear existing data
   await prisma.stockLog.deleteMany()
@@ -15,7 +19,7 @@ async function main() {
   // Create Users
   const hashedPassword = await bcrypt.hash('password123', 10)
 
-  const owner = await prisma.user.create({
+  await prisma.user.create({
     data: {
       name: 'Admin Owner',
       email: 'owner@techstore.com',
@@ -24,7 +28,7 @@ async function main() {
     }
   })
 
-  const gudang = await prisma.user.create({
+  await prisma.user.create({
     data: {
       name: 'Staff Gudang',
       email: 'gudang@techstore.com',
@@ -33,7 +37,7 @@ async function main() {
     }
   })
 
-  const kasir = await prisma.user.create({
+  await prisma.user.create({
     data: {
       name: 'Staff Kasir',
       email: 'kasir@techstore.com',
@@ -45,7 +49,7 @@ async function main() {
   console.log('✅ Users created')
 
   // Create Products
-  const products = await prisma.product.createMany({
+  await prisma.product.createMany({
     data: [
       // Processors
       { name: 'AMD Ryzen 5 5600X', category: 'Processor', brand: 'AMD', price: 2500000, stock: 15, minStock: 5, location: 'A1' },
@@ -83,13 +87,12 @@ async function main() {
   console.log('✅ Products created')
 
   console.log('🎉 Seeding completed!')
+
+  await prisma.$disconnect()
 }
 
 main()
   .catch((e) => {
     console.error('❌ Seeding failed:', e)
     process.exit(1)
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
   })
